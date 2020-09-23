@@ -7,7 +7,7 @@ import { Text, View } from '../components/Themed';
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Quiere se mi novia? 💕🌹💍</Text>
+      <Text style={styles.title}>Quiere se mi novia?? 💕🌹💍</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
