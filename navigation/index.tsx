@@ -7,26 +7,33 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
-// If you are not familiar with React Navigation, we recommend going through the
-// "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
+import * as firebase from 'firebase';
+import firebaseConfig from '../constants/Firebase';
+
+firebase.initializeApp(firebaseConfig);
+
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <NavigationContainer linking={LinkingConfiguration}>
-        <RootNavigator />
-      </NavigationContainer>
-    </ApplicationProvider>
+    <React.Fragment>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <NavigationContainer linking={LinkingConfiguration}>
+          <RootNavigator />
+        </NavigationContainer>
+      </ApplicationProvider>
+    </React.Fragment>
   );
 }
 

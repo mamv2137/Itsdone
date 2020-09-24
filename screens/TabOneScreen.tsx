@@ -2,11 +2,13 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
 
+import PlusButton from '../components/PlusButton';
+
 export default function TabOneScreen() {
   const [counter, setCounter] = React.useState(0);
   return (
     <Layout style={styles.container}>
-      <Button onPress={() => setCounter(counter + 1)}>BUTTON</Button>
+      <PlusButton onPress={() => setCounter(counter + 1)} />
       <Text>Pressed {counter} times</Text>
     </Layout>
   );
@@ -21,10 +23,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
   },
 });

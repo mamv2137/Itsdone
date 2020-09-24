@@ -4,8 +4,9 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Home: undefined;
+  Task: undefined;
+  Tasks: undefined;
 };
 
 export type TabOneParamList = {
@@ -14,4 +15,8 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+};
+
+export type TaskParamList = {
+  TaskScreen: undefined;
 };

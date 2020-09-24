@@ -1,73 +1,129 @@
-import { Ionicons } from '@expo/vector-icons';
+import * as React from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import Icon from '../components/Icon';
+import PlusButton from '../components/PlusButton';
+
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import {
+  BottomTabParamList,
+  TabOneParamList,
+  TabTwoParamList,
+  TaskParamList,
+} from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+    <BottomTab.Navigator initialRouteName="Home">
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => {
+            return <Icon name="home-outline" color={color} fill={color} />;
+          },
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Task"
+        component={TaskNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabPress: () => {
+            console.log('object');
+          },
+          tabBarButton: (e) => {
+            return (
+              <View style={styles.PlusButtonContainer}>
+                <PlusButton onPress={() => console.log('Desde el plus')} />
+              </View>
+            );
+          },
+
+          tabBarLabel: () => {
+            return null;
+          },
+        }}
+      />
+      <BottomTab.Screen
+        name="Tasks"
+        component={TasksNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon name="grid-outline" color={color} fill={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
+const PayScreenComponent = () => {
+  return null;
+};
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<TabOneParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="TabOneScreen" component={TabOneScreen} />
+    </HomeStack.Navigator>
+  );
+}
+const TaskStack = createStackNavigator<TaskParamList>();
+
+function TaskNavigator() {
+  return (
+    <TaskStack.Navigator>
+      <TaskStack.Screen
+        name="TaskScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        options={{
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
-    </TabOneStack.Navigator>
+    </TaskStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const TasksStack = createStackNavigator<TabTwoParamList>();
 
-function TabTwoNavigator() {
+function TasksNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
+    <TasksStack.Navigator>
+      <TasksStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
         options={{ headerTitle: 'Tab Two Title' }}
       />
-    </TabTwoStack.Navigator>
+    </TasksStack.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  PlusButtonContainer: {
+    display: 'flex',
+    position: 'absolute',
+    bottom: 20, // space from bottombar
+    height: 68,
+    width: 68,
+    marginLeft: Dimensions.get('window').width / 2 - 33,
+    marginRight: 'auto',
+    borderRadius: 68,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+});
