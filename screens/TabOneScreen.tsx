@@ -1,20 +1,14 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { StyleSheet, View } from 'react-native';
+import { Button, Layout, Text } from '@ui-kitten/components';
 
 export default function TabOneScreen() {
+  const [counter, setCounter] = React.useState(0);
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Te amo vale ❤</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <Text style={styles.title}>Ve a la 2da tab</Text>
-    </View>
+    <Layout style={styles.container}>
+      <Button onPress={() => setCounter(counter + 1)}>BUTTON</Button>
+      <Text>Pressed {counter} times</Text>
+    </Layout>
   );
 }
 
