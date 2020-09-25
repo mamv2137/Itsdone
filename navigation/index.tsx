@@ -1,22 +1,21 @@
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
+import { Host } from 'react-native-portalize';
+
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
+import { ModalProvider } from '../contexts/ModalContext';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
 import * as firebase from 'firebase';
-import firebaseConfig from '../constants/Firebase';
+import firebaseConfig from '../constants/Firebase'; //TODO: Change place for this
 
 firebase.initializeApp(firebaseConfig);
 
@@ -27,12 +26,17 @@ export default function Navigation({
 }) {
   return (
     <React.Fragment>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <NavigationContainer linking={LinkingConfiguration}>
-          <RootNavigator />
-        </NavigationContainer>
-      </ApplicationProvider>
+      <ModalProvider>
+        <IconRegistry icons={EvaIconsPack} />
+
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <NavigationContainer linking={LinkingConfiguration}>
+            <Host>
+              <RootNavigator />
+            </Host>
+          </NavigationContainer>
+        </ApplicationProvider>
+      </ModalProvider>
     </React.Fragment>
   );
 }

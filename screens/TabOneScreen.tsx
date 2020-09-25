@@ -1,15 +1,14 @@
-import * as React from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
 
-import PlusButton from '../components/PlusButton';
+import ModalScreen from './ModalScreen';
 
 export default function TabOneScreen() {
-  const [counter, setCounter] = React.useState(0);
   return (
     <Layout style={styles.container}>
-      <PlusButton onPress={() => setCounter(counter + 1)} />
-      <Text>Pressed {counter} times</Text>
+      {/* Contento of Home */}
+      <ModalScreen />
     </Layout>
   );
 }

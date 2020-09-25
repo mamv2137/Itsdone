@@ -1,10 +1,12 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Icon from '../components/Icon';
 import PlusButton from '../components/PlusButton';
+
+import { ModalContext } from '../contexts/ModalContext';
 
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
@@ -18,6 +20,7 @@ import {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
+  const { openModal } = useContext(ModalContext);
   return (
     <BottomTab.Navigator initialRouteName="Home">
       <BottomTab.Screen
@@ -33,17 +36,13 @@ export default function BottomTabNavigator() {
         name="Task"
         component={TaskNavigator}
         options={{
-          tabPress: () => {
-            console.log('object');
-          },
           tabBarButton: (e) => {
             return (
               <View style={styles.PlusButtonContainer}>
-                <PlusButton onPress={() => console.log('Desde el plus')} />
+                <PlusButton onPress={openModal} />
               </View>
             );
           },
-
           tabBarLabel: () => {
             return null;
           },
@@ -61,10 +60,6 @@ export default function BottomTabNavigator() {
     </BottomTab.Navigator>
   );
 }
-
-const PayScreenComponent = () => {
-  return null;
-};
 
 const HomeStack = createStackNavigator<TabOneParamList>();
 
