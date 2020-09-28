@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -22,7 +22,10 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 export default function BottomTabNavigator() {
   const { openModal } = useContext(ModalContext);
   return (
-    <BottomTab.Navigator initialRouteName="Home">
+    <BottomTab.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
+    >
       <BottomTab.Screen
         name="Home"
         component={HomeNavigator}

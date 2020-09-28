@@ -5,9 +5,16 @@ import { ColorSchemeName } from 'react-native';
 import { Host } from 'react-native-portalize';
 
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import {
+  ApplicationProvider,
+  IconRegistry,
+  Text,
+  Layout,
+} from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
+import HeaderBackground from '../components/HeaderBackground';
+import HeaderNavigator from '../components/HeaderNavigator';
 import { ModalProvider } from '../contexts/ModalContext';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
@@ -16,6 +23,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import * as firebase from 'firebase';
 import firebaseConfig from '../constants/Firebase'; //TODO: Change place for this
+import Layout2 from '../constants/Layout';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -47,8 +55,16 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{
+          headerBackground: () => <HeaderBackground />,
+          headerStyle: { height: 180 },
+          headerTitle: () => <HeaderNavigator />,
+        }}
+        name="Root"
+        component={BottomTabNavigator}
+      />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
