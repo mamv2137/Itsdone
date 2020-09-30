@@ -8,10 +8,14 @@ import {
   MenuItem,
 } from '@ui-kitten/components';
 
+import useTheme from '../hooks/useTheme';
+
 const HeaderNavigator = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [mode, setMode] = useState(false);
   const [lang, setLang] = useState(false);
+
+  const [theme, toggleTheme] = useTheme();
 
   const AvatarMenu = () => (
     <TouchableOpacity onPress={setShowMenu}>
@@ -39,17 +43,13 @@ const HeaderNavigator = () => {
           <MenuItem
             title={`${lang ? 'Espa;ol' : 'English'}`}
             accessoryRight={() => (
-              <Toggle
-                style={{ marginRight: 5 }}
-                checked={lang}
-                onChange={setLang}
-              ></Toggle>
+              <Toggle checked={lang} onChange={setLang}></Toggle>
             )}
           />
           <MenuItem
-            title={`Mode ${mode ? '🌑' : '🌞'}`}
+            title={`Mode ${theme.value ? '🌑' : '🌞'}`}
             accessoryRight={() => (
-              <Toggle checked={mode} onChange={setMode}></Toggle>
+              <Toggle checked={theme.value} onChange={toggleTheme}></Toggle>
             )}
           />
           <MenuItem title="Logout" onPress={() => console.log('object')} />

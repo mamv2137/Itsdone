@@ -13,6 +13,7 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
+import useTheme from '../hooks/useTheme';
 import HeaderBackground from '../components/HeaderBackground';
 import HeaderNavigator from '../components/HeaderNavigator';
 import { ModalProvider } from '../contexts/ModalContext';
@@ -23,7 +24,6 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import * as firebase from 'firebase';
 import firebaseConfig from '../constants/Firebase'; //TODO: Change place for this
-import Layout2 from '../constants/Layout';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -32,12 +32,12 @@ export default function Navigation({
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const [theme] = useTheme();
   return (
     <React.Fragment>
       <ModalProvider>
         <IconRegistry icons={EvaIconsPack} />
-
-        <ApplicationProvider {...eva} theme={eva.light}>
+        <ApplicationProvider {...eva} theme={eva[theme.text]}>
           <NavigationContainer linking={LinkingConfiguration}>
             <Host>
               <RootNavigator />
