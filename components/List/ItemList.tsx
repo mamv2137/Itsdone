@@ -19,14 +19,16 @@ const ItemList = ({
   isSelected,
   hasReminder,
   hasPreview,
-  onSwipe = null,
-  onDelete = null,
-  onSelect = null,
-  onEdit = null,
+  onSwipe = () => null,
+  onDelete = () => null,
+  onSelect = () => null,
+  onEdit = () => null,
+  onReminder = () => null,
 }) => {
   const statusCheckbox = isSelected ? 'success' : 'basic';
   const iconColor = hasReminder ? '#FFDC00' : '#D9D9D9';
   const selectedStyle = {
+    color: '#D9D9D9',
     textDecorationLine: 'line-through',
     fontStyle: 'italic',
   };
@@ -38,13 +40,14 @@ const ItemList = ({
         marginLeft: 18,
         marginRight: 18,
       }}
-      onRowPress={() => onSelect(item)}
+      onRowPress={() => onSelect(item.id)}
       preview={hasPreview}
       key={item.id}
       swipeKey={item.id}
       swipeGestureEnded={onSwipe}
       leftOpenValue={70}
       rightOpenValue={-120}
+      shouldItemUpdate={(curr, newObj) => true}
     >
       <View style={styles.standaloneRowBack}>
         <Text>{item.tag.text}</Text>
@@ -54,7 +57,7 @@ const ItemList = ({
               fill="#F9C229"
               width="20"
               height="20"
-              onPress={() => onEdit(item)}
+              onPress={() => onEdit(item.id)}
             />
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.deleteButton]}>
@@ -62,7 +65,7 @@ const ItemList = ({
               fill="#FB3636"
               width="20"
               height="20"
-              onPress={() => onDelete(item)}
+              onPress={() => onDelete(item.id)}
             />
           </TouchableOpacity>
         </View>
@@ -79,7 +82,7 @@ const ItemList = ({
         <View style={styles.itemContainer}>
           <CheckBox
             status={statusCheckbox}
-            onChange={() => onSelect(item)}
+            onChange={() => onSelect(item.id)}
             checked={isSelected}
           />
           <Text category="p2" appearance="hint">
@@ -89,7 +92,9 @@ const ItemList = ({
             item.key + 1
           }`}</Text>
         </View>
-        <Icon name="bell" width={25} height={25} fill={iconColor} />
+        <TouchableOpacity onPress={() => onReminder(item.id)}>
+          <Icon name="bell" width={25} height={25} fill={iconColor} />
+        </TouchableOpacity>
       </View>
     </SwipeRow>
   );

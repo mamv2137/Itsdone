@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Dimensions, StyleSheet, ScrollView } from 'react-native';
 import { Layout } from '@ui-kitten/components';
@@ -22,14 +22,27 @@ const data = Array.from(
 );
 
 const Home = () => {
-  const [tasks, setTasks] = useState(data);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    setTasks(data);
+  }, []);
+
   const hasPreview = (idx) => (idx < 1 ? true : false);
 
-  const onSelectItem = (item) => {
-    console.log(item);
+  const onSelectItem = (id) => {
+    const newTasks = [...tasks];
+    const idxSelectedItem = tasks.findIndex((task) => task.id === id);
+    newTasks[idxSelectedItem] = {
+      ...newTasks[idxSelectedItem],
+      isDone: !newTasks[idxSelectedItem].isDone,
+    };
+    setTasks(newTasks);
   };
 
-  const onDeleteItem = (item) => console.log(item);
+  const onEditItem = (id) => console.log(id, 'edit');
+
+  const onDeleteItem = (id) => console.log(id, 'delete');
 
   const renderItem = () => {
     return tasks.map((item, idx) => (
@@ -41,10 +54,10 @@ const Home = () => {
         key={item.id}
         onDelete={onDeleteItem}
         onSelect={onSelectItem}
+        onEdit={onEditItem}
       />
     ));
   };
-
   return (
     <Layout style={styles.container}>
       <ScrollView>{renderItem()}</ScrollView>
