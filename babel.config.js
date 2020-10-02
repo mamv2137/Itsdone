@@ -9,7 +9,8 @@ module.exports = function (api) {
     ],
     plugins: [
       '@babel/plugin-syntax-optional-chaining',
-      '@babel/plugin-proposal-class-properties',
+      ['@babel/plugin-proposal-decorators', { legacy: true }],
+      ['@babel/plugin-proposal-class-properties', { loose: true }],
     ],
   };
 };

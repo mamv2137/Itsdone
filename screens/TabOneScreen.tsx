@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Layout, Text } from '@ui-kitten/components';
 

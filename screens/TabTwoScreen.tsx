@@ -1,35 +1,94 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Layout, Text, Card } from '@ui-kitten/components';
+
+import Icon from '../components/Icon';
+import Tags from '../constants/Tags';
+
+import { capitalizeString } from '../utils/string';
 
 export default function TabTwoScreen() {
+  const handlePress = (item) => console.log(item);
+  const addCategory = () => console.log('new Category');
+
+  const renderAddCard = () => (
+    <Card onPress={addCategory} style={styles.cardContainer}>
+      <View style={[styles.iconContainer, styles.addIconcontainer]}>
+        <Icon name="plus" fill="#8F9BB3" width="40" height="40" />
+      </View>
+      <Text category="h6" style={styles.text}>
+        Add Category
+      </Text>
+    </Card>
+  );
+
+  const renderCard = () => {
+    return Tags.map((tag) => (
+      <Card
+        key={tag.id}
+        onPress={() => handlePress(tag)}
+        style={styles.cardContainer}
+      >
+        <View
+          style={[styles.iconContainer, { backgroundColor: tag.colors.back }]}
+        >
+          <Icon name={tag.icon} fill={tag.colors.icon} width="40" height="40" />
+        </View>
+        <Text category="h6" style={styles.text}>
+          {capitalizeString(tag.text)}
+        </Text>
+        <Text category="s2" appearance="hint" style={styles.text}>
+          24 tasks
+        </Text>
+      </Card>
+    ));
+  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Quiere se mi novia?? 💕🌹💍</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-    </View>
+    <ScrollView>
+      <Layout>
+        <Text style={styles.titleContainer} category="h6" appearance="hint">
+          Projects
+        </Text>
+      </Layout>
+      <Layout style={styles.container}>
+        {renderAddCard()}
+        {renderCard()}
+      </Layout>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    marginHorizontal: 14,
+    marginTop: 6,
+    letterSpacing: 1,
+  },
   container: {
-    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    padding: 4,
+  },
+  cardContainer: {
+    alignItems: 'center',
+    boxShadow: '9px 11px 53px -17px rgba(166,166,166,1)',
+    height: 180,
+    justifyContent: 'center',
+    margin: 9,
+    width: 180,
+  },
+  text: { alignSelf: 'center', marginTop: 5 },
+  addIconcontainer: { backgroundColor: '#C5CEE0', alignSelf: 'center' },
+  iconContainer: {
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    backgroundColor: '#FFCFCF',
+    width: 65,
+    height: 65,
+    borderRadius: 100,
+    padding: 10,
   },
 });

@@ -1,0 +1,39 @@
+{
+  "components": {
+    "CircleButton": {
+      "meta": {
+        "parameters": {
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "borderRadius": {
+            "type": "number"
+          },
+          "backgroundColor": {
+            "type": "number"
+          }
+        },
+        "variantGroups": {},
+        "states": {},
+        "appearances": {
+          "filled": {
+            "default": true
+          }
+        }
+      },
+      "appearances": {
+        "filled": {
+          "mapping": {
+            "width": 64,
+            "height": 64,
+            "borderRadius": 32,
+            "backgroundColor": "color-primary-default"
+          }
+        }
+      }
+    }
+  }
+}

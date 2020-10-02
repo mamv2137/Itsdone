@@ -22,6 +22,8 @@ import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
+import { default as mapping } from '../mapping.json';
+
 import * as firebase from 'firebase';
 import firebaseConfig from '../constants/Firebase'; //TODO: Change place for this
 
@@ -37,7 +39,11 @@ export default function Navigation({
     <React.Fragment>
       <ModalProvider>
         <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider {...eva} theme={eva[theme.text]}>
+        <ApplicationProvider
+          customMapping={mapping}
+          {...eva}
+          theme={eva[theme.text]}
+        >
           <NavigationContainer linking={LinkingConfiguration}>
             <Host>
               <RootNavigator />

@@ -4,6 +4,7 @@ const ModalContext = createContext({});
 
 const ModalProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(isOpen);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);

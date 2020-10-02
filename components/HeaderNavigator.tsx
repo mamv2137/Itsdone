@@ -12,7 +12,6 @@ import useTheme from '../hooks/useTheme';
 
 const HeaderNavigator = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [mode, setMode] = useState(false);
   const [lang, setLang] = useState(false);
 
   const [theme, toggleTheme] = useTheme();
@@ -35,6 +34,7 @@ const HeaderNavigator = () => {
           </Text>
         </View>
         <OverflowMenu
+          style={styles.containerMenu}
           anchor={AvatarMenu}
           visible={showMenu}
           placement="bottom end"
@@ -43,13 +43,21 @@ const HeaderNavigator = () => {
           <MenuItem
             title={`${lang ? 'Espa;ol' : 'English'}`}
             accessoryRight={() => (
-              <Toggle checked={lang} onChange={setLang}></Toggle>
+              <Toggle
+                activeOpacity={0.7}
+                checked={lang}
+                onChange={setLang}
+              ></Toggle>
             )}
           />
           <MenuItem
             title={`Mode ${theme.value ? '🌑' : '🌞'}`}
             accessoryRight={() => (
-              <Toggle checked={theme.value} onChange={toggleTheme}></Toggle>
+              <Toggle
+                activeOpacity={0.7}
+                checked={theme.value}
+                onChange={toggleTheme}
+              ></Toggle>
             )}
           />
           <MenuItem title="Logout" onPress={() => console.log('object')} />
@@ -63,7 +71,7 @@ const HeaderNavigator = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    height: 80,
+    height: 50,
   },
   profileContainer: {
     flexDirection: 'row',
@@ -73,6 +81,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
+  },
+  containerMenu: {
+    marginTop: 6,
   },
 });
 
