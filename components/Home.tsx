@@ -99,7 +99,16 @@ const Home = () => {
     onCloseAllRows();
   };
 
-  const onReminderItem = (id) => console.log(id, 'reminder');
+  const onReminderItem = (id) => {
+    const newTasks = [...tasks];
+    const idxSelectedItem = getIndexOpenedRow(id);
+    const selectedRow = getOpenedRow(id);
+    newTasks[idxSelectedItem] = {
+      ...newTasks[idxSelectedItem],
+      hasReminder: !newTasks[idxSelectedItem].hasReminder,
+    };
+    setTasks(newTasks);
+  };
 
   const onCloseRow = (item) => item.current.closeRow();
 

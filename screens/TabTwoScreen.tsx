@@ -17,7 +17,7 @@ export default function TabTwoScreen() {
       <View style={[styles.iconContainer, styles.addIconcontainer]}>
         <Icon name="plus" fill="#8F9BB3" width="40" height="40" />
       </View>
-      <Text category="h6" style={styles.text}>
+      <Text category="label" style={styles.text}>
         Add Category
       </Text>
     </Card>
@@ -35,7 +35,7 @@ export default function TabTwoScreen() {
         >
           <Icon name={tag.icon} fill={tag.colors.icon} width="40" height="40" />
         </View>
-        <Text category="h6" style={styles.text}>
+        <Text category="label" style={styles.text}>
           {capitalizeString(tag.text)}
         </Text>
         <Text category="s2" appearance="hint" style={styles.text}>
@@ -51,7 +51,7 @@ export default function TabTwoScreen() {
           Projects
         </Text>
       </Layout>
-      <Layout style={styles.container}>
+      <Layout style={styles.cardsContainer}>
         {renderAddCard()}
         {renderCard()}
       </Layout>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     letterSpacing: 1,
   },
-  container: {
+  cardsContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     flexWrap: 'wrap',
@@ -74,12 +74,12 @@ const styles = StyleSheet.create({
   cardContainer: {
     alignItems: 'center',
     boxShadow: '9px 11px 53px -17px rgba(166,166,166,1)',
-    height: 180,
+    height: 160,
     justifyContent: 'center',
-    margin: 9,
-    width: 180,
+    margin: 8,
+    width: 160,
   },
-  text: { alignSelf: 'center', marginTop: 5 },
+  text: { alignSelf: 'center', marginTop: 5, fontSize: 16 },
   addIconcontainer: { backgroundColor: '#C5CEE0', alignSelf: 'center' },
   iconContainer: {
     alignSelf: 'center',

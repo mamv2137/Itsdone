@@ -142,7 +142,7 @@ const ItemList = (
             </TouchableWithoutFeedback>
           </View>
           <TouchableOpacity onPress={() => onReminder(item.id)}>
-            <Icon name="bell" width={25} height={25} fill={iconColor} />
+            <Icon name="bell" width={20} height={20} fill={iconColor} />
           </TouchableOpacity>
         </View>
       </SwipeRow>
